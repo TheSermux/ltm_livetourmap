@@ -1,12 +1,29 @@
 version: '3'
 services:
-  web:
+  app:
     build: .
-    command: gunicorn -b 0.0.0.0:8000 todosapp.wsgi:application
-    container_name: "ptn"
+    container_name: "ptn_1"
     tty: true
     volumes:
       - ./:/usr/src/app
+    networks:  # <-- here
+      - nginx_network
+
+    #ports:
+    #  - "8000:8000"
+ 
+  nginx:
+    image: nginx:1.13
     ports:
-      - "8000:8000"
-   
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
+      - app
+    networks:  # <-- here
+      - nginx_network
+
+
+networks:  # <-- and here
+  nginx_network:
+    driver: bridge
