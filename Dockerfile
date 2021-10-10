@@ -15,4 +15,4 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY . .
-CMD ["gunicorn","--chdir", "solution", "--bind", ":8000", "solution.wsgi:application"]
+CMD ["gunicorn","--chdir", "solution", "--bind", "0.0.0.0:8000", "main"]
