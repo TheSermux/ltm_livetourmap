@@ -14,10 +14,13 @@ services:
  
   nginx:
     image: nginx:1.13
+    container_name: "ptn_nginx"
     ports:
       - 8000:80
+      - 8001:81
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - .:/var/www/home
     depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
       - app
     networks:  # <-- here
