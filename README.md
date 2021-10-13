@@ -1,3 +1,6 @@
+# LTM:LiveTourMap
+живая карта проблем курортов
+
 # запуск
 docker-compose up -d --build
 
